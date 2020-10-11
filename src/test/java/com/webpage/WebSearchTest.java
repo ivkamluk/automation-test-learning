@@ -20,7 +20,7 @@ public class WebSearchTest extends BaseTest {
         Assert.assertEquals(driver.getTitle(), "Google");
         homepage.performSearchByRequest(searchRequest);
         SearchPage searchpage = new SearchPage(driver);
-        searchpage.openLinkFromSearch(1);
+        searchpage.openLinkFromSearch(4);
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("ScreenShotLinkFromSearch.png"));
     }
