@@ -13,7 +13,7 @@ In code was used specific flags:
 ## Flags
 
 ```bash
--Dtestng.dtd.http=true - disables loading DTD from unsecure Urls (to ignore errors with [bug](https://github.com/cbeust/testng/issues/2022)
+-Dtestng.dtd.http=true - disables loading DTD from unsecure Urls (bug: https://github.com/cbeust/testng/issues/2022)
 -Dbrowser=chrome       - launching differrent drivers (chrome/firefox)
 -DsearchRequest=Java   - performing searching with provided text 
 ```
