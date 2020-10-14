@@ -15,12 +15,20 @@ public class BasePage {
         this.driver = driver;
     }
 
-    public void waitPageFullyLoaded() {
-    new WebDriverWait(driver, waitLoadTimeSeconds).until(webDriver -> ((JavascriptExecutor)
-            webDriver).executeScript("return document.readyState").equals("complete"));
+    public boolean pageFullyLoaded() {
+        boolean pageLoaded = true;
+        try {
+            new WebDriverWait(driver, waitLoadTimeSeconds).until(webDriver -> ((JavascriptExecutor)
+                    webDriver).executeScript("return document.readyState").equals("complete"));
+        }
+        catch(Throwable error) {
+                System.out.println("Timeout waiting for Page Loaded " + waitLoadTimeSeconds + " seconds.");
+                pageLoaded = false;
+        }
+        return pageLoaded;
 }
 
     public void waitElementLoadedToClick(WebElement element) {
-        new WebDriverWait(driver, waitLoadTimeSeconds).until(ExpectedConditions.elementToBeClickable(element));
+            new WebDriverWait(driver, waitLoadTimeSeconds).until(ExpectedConditions.elementToBeClickable(element));
     }
 }

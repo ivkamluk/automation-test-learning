@@ -14,13 +14,15 @@ public class WebSearchTest extends BaseTest {
 
     @Parameters ("searchRequest")
     @Test
-    public void openLinkFromSearch(String searchRequest) throws IOException {
+    public void openLinkFromSearch(String searchRequest) throws IOException, InterruptedException {
         HomePage homepage = new HomePage(driver);
         homepage.openHomePage();
+        Assert.assertTrue(homepage.pageFullyLoaded(), "Home page failed to load.");
         Assert.assertEquals(driver.getTitle(), "Google");
         homepage.performSearchByRequest(searchRequest);
         SearchPage searchpage = new SearchPage(driver);
         searchpage.openLinkFromSearch(4);
+        Assert.assertTrue(searchpage.pageFullyLoaded(), "Search page failed to load.");
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(scrFile, new File("ScreenShotLinkFromSearch.png"));
     }
