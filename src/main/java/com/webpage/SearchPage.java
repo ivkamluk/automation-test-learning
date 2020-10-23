@@ -19,8 +19,8 @@ public class SearchPage extends BasePage {
     }
 
     public void openLinkFromSearch(int linkIndex) throws InterruptedException {
-        Thread thread = new Thread();  // use this just only for personal debug:
-        thread.sleep(7000);           // to compare real page with opened index page
+        // use Thread only for personal debug: to compare real page with opened index page
+        Thread.sleep(7000);
         waitElementLoadedToClick(getLinkFromSearchByIndex(linkIndex));
         getLinkFromSearchByIndex(linkIndex).click();
         System.out.println(driver.getCurrentUrl() + "link by requested index - " + linkIndex + ".");
@@ -33,8 +33,6 @@ public class SearchPage extends BasePage {
         }
 
         linksFromSearch.addAll(driver.findElements(By.xpath(path)));
-
-        System.out.println(linksFromSearch.size() + " links from search was found.");
         return linksFromSearch;
     }
 
