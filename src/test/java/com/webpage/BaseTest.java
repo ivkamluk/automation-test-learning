@@ -1,15 +1,19 @@
 package com.webpage;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import java.io.File;
+import java.io.IOException;
 
 public class BaseTest {
 
     private DriverSetup driversetup;
+    private final static Logger log = Logger.getLogger(BaseTest.class);
     public WebDriver driver;
 
     @Parameters ({"browser"})
@@ -21,14 +25,25 @@ public class BaseTest {
         return driver;
     }
 
-    @BeforeClass
-    public void removeMadeScreenshots() {
+    @BeforeMethod
+    public void removeScreenshot() {
         File file = new File("ScreenShotLinkFromSearch.png");
         if (file.delete()) {
-            System.out.println("Screenshot deleted successfully");
+            log.info("Screenshot deleted successfully");
         }
         else {
-            System.out.println("Screenshot not exist for deleting.");
+            log.info("Screenshot not exist for deleting.");
+        }
+    }
+
+    @AfterMethod
+    public void createScreenShot() throws IOException {
+        try {
+            File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(scrFile, new File("ScreenShotLinkFromSearch.png"));
+        }
+        catch (IOException exception) {
+            log.error(exception);
         }
     }
 

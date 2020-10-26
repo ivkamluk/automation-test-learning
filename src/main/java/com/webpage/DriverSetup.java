@@ -1,5 +1,7 @@
 package com.webpage;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class DriverSetup {
 
     protected WebDriver driver;
+    private final Logger log = Logger.getLogger(DriverSetup.class);
 
     protected WebDriver getDriver() {
         return driver;
@@ -18,12 +21,12 @@ public class DriverSetup {
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
-                System.out.println("Initialized FirefoxDriver.");
+                log.info("Initialized FirefoxDriver.");
                 break;
             case "chrome": default:
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
-                System.out.println("By default switched to ChromeDriver.");
+                log.info("By default switched to ChromeDriver.");
         }
         driver.manage().window().maximize();
     }

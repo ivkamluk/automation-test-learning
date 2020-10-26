@@ -1,5 +1,6 @@
 package com.webpage;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,7 +8,7 @@ import org.openqa.selenium.WebElement;
 public class HomePage extends BasePage {
 
        private final String GooglePageUrl = "https://google.com";
-
+       private final Logger log = Logger.getLogger(HomePage.class);
        private WebElement buttonSearch;
        private WebElement inputField;
 
@@ -18,7 +19,7 @@ public class HomePage extends BasePage {
     public void openHomePage() {
         waitPageFullyLoaded();
         driver.get(GooglePageUrl);
-        System.out.println(GooglePageUrl + " was opened.");
+        log.info(GooglePageUrl + " was opened.");
     }
 
  /*
@@ -36,6 +37,6 @@ To test url from commandLine
         buttonSearch = driver.findElement(By.xpath("//input[@name='btnK']"));
         waitElementLoadedToClick(buttonSearch);
         buttonSearch.click();
-        System.out.println(searchRequest + " request was performed.");
+        log.info(searchRequest + " request was performed.");
    }
 }

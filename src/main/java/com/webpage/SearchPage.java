@@ -1,5 +1,6 @@
 package com.webpage;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,9 @@ import java.util.List;
 
 public class SearchPage extends BasePage {
 
+    private final Logger log = Logger.getLogger(SearchPage.class);
     private List<WebElement> linksFromSearch;
+
 
     public SearchPage(WebDriver driver) {
         super(driver);
@@ -17,13 +20,12 @@ public class SearchPage extends BasePage {
     public void openLinkFromSearch(int linkIndex) {
         getLinkFromSearchByIndex(linkIndex).click();
         waitPageFullyLoaded();
-        System.out.println(driver.getCurrentUrl() + "link by requested index - " + linkIndex + ".");
+        log.info(driver.getCurrentUrl() + "link by requested index - " + linkIndex + ".");
     }
 
     private List<WebElement> getLinksFromSearch(String path) {
         linksFromSearch = driver.findElements(By.xpath(path));
-        System.out.println(linksFromSearch.size() + " links from search was found.");
-        System.out.println(linksFromSearch);
+        log.info(linksFromSearch.size() + " links from search was found.");
         return linksFromSearch;
     }
 
