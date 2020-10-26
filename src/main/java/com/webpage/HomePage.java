@@ -17,7 +17,6 @@ public class HomePage extends BasePage {
     }
 
     public void openHomePage() {
-        waitPageFullyLoaded();
         driver.get(GooglePageUrl);
         log.info(GooglePageUrl + " was opened.");
     }
