@@ -1,6 +1,5 @@
 package com.webpage;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
