@@ -46,7 +46,7 @@ public class SearchPage extends BasePage {
 
     private WebElement determineSpecificFirstBlockByRequest() {
         try {
-            specificFirstBlockFromSearch = driver.findElement(By.xpath("//*[@id='rso']/div[1]/div/div/div[1]/a"));
+            specificFirstBlockFromSearch = driver.findElement(By.xpath("//*[@id='rso']/div[1]/div/div/div/div[1]/a"));
             return specificFirstBlockFromSearch;
         }
         catch(NoSuchElementException exception) {
