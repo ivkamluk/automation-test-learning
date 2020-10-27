@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class BasePage {
 
     protected final long waitLoadTimeSeconds = 15;
+    protected Logger log = Logger.getLogger(BasePage.class);
     protected WebDriver driver;
 
     public BasePage(WebDriver driver) {
@@ -22,8 +23,8 @@ public class BasePage {
             new WebDriverWait(driver, waitLoadTimeSeconds).until(webDriver -> ((JavascriptExecutor)
                     webDriver).executeScript("return document.readyState").equals("complete"));
         }
-        catch(Throwable error) {
-                System.out.println("Timeout waiting for Page Loaded " + waitLoadTimeSeconds + " seconds.");
+        catch(Throwable exception) {
+                log.error(exception);
                 pageLoaded = false;
         }
         return pageLoaded;

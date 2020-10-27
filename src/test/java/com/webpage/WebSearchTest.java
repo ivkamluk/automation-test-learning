@@ -14,7 +14,7 @@ public class WebSearchTest extends BaseTest {
 
     @Parameters ("searchRequest")
     @Test
-    public void openLinkFromSearch(String searchRequest) throws IOException, InterruptedException {
+    public void openLinkFromSearch(String searchRequest) throws InterruptedException {
         HomePage homepage = new HomePage(driver);
         homepage.openHomePage();
         Assert.assertTrue(homepage.pageFullyLoaded(), "Home page failed to load.");
@@ -23,8 +23,6 @@ public class WebSearchTest extends BaseTest {
         SearchPage searchpage = new SearchPage(driver);
         searchpage.openLinkFromSearch(4);
         Assert.assertTrue(searchpage.pageFullyLoaded(), "Search page failed to load.");
-        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("ScreenShotLinkFromSearch.png"));
     }
 }
 

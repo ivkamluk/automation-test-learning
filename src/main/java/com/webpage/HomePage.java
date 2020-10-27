@@ -8,12 +8,12 @@ import org.openqa.selenium.WebElement;
 public class HomePage extends BasePage {
 
        private final String GooglePageUrl = "https://google.com";
-       private final Logger log = Logger.getLogger(HomePage.class);
        private WebElement buttonSearch;
        private WebElement inputField;
 
     public HomePage(WebDriver driver) {
         super(driver);
+        log = Logger.getLogger(HomePage.class);
     }
 
     public void openHomePage() {
