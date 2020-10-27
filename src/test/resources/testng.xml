@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="GoogleTest">
+	<parameter name="browser"  value="chrome"/>
+	<parameter name="searchRequest"  value="java"/>
+	<test name="SearchTest">
+		<classes>
+			<class name="com.webpage.BaseTest" />
+			<class name="com.webpage.WebSearchTest" />
+		</classes>
+	</test>
+</suite>

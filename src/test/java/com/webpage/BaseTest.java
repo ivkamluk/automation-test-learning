@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.io.File;
@@ -47,8 +48,9 @@ public class BaseTest {
         }
     }
 
-    @AfterTest
+    @AfterClass
     public void closeBrowser() {
         driver.quit();
+        log.info("Browser was closed.");
     }
 }
