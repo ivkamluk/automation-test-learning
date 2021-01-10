@@ -1,53 +1,52 @@
 package com.webpage;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPage extends BasePage {
 
-    @FindBy(xpath="//*[@id='rso']/div/div/div/a")
-    private List<WebElement> searchedLinks;
-
-    @FindBy(xpath="//*[@id='rso']/div[1]/div/div/div/div[1]/a")
+    private List<WebElement> linksFromSearch;
     private WebElement specificFirstBlockFromSearch;
 
-    private List<WebElement> linksOnSearchPage;
 
     public SearchPage(WebDriver driver) {
         super(driver);
-        linksOnSearchPage = new ArrayList<WebElement>();
+        linksFromSearch = new ArrayList<WebElement>();
         log = Logger.getLogger(SearchPage.class);
-        PageFactory.initElements(driver, this);
     }
 
     public void openLinkFromSearch(int linkIndex) throws InterruptedException {
         Thread.sleep(7000); // use Thread only for personal debug: to compare real page with opened index page
         waitElementLoadedToClick(getLinkFromSearchByIndex(linkIndex));
-        linksOnSearchPage.get(linkIndex).click();
+        getLinkFromSearchByIndex(linkIndex).click();
         log.info(driver.getCurrentUrl() + "link by requested index - " + linkIndex + ".");
+    }
+
+    private List<WebElement> getLinksFromSearch(String path) {
+
+        if (determineSpecificFirstBlockByRequest() != null) {
+            linksFromSearch.add(specificFirstBlockFromSearch);
+        }
+
+        linksFromSearch.addAll(driver.findElements(By.xpath(path)));
+        return linksFromSearch;
     }
 
     private WebElement getLinkFromSearchByIndex(int linkIndex) {
         // to open link according to the searched result we should decrease by 1
         // in list numeration always starts from 0 and 1st link will be on position 0
-
-        if (determineSpecificFirstBlockByRequest() != null) {
-            linksOnSearchPage.add(specificFirstBlockFromSearch);
-        }
-
-        linksOnSearchPage.addAll(searchedLinks);
-        return linksOnSearchPage.get(linkIndex-1);
+        return getLinksFromSearch("//*[@id='rso']/div/div/div/a").get(linkIndex-1);
     }
 
     private WebElement determineSpecificFirstBlockByRequest() {
         try {
+            specificFirstBlockFromSearch = driver.findElement(By.xpath("//*[@id='rso']/div[1]/div/div/div/div[1]/a"));
             return specificFirstBlockFromSearch;
         }
         catch(NoSuchElementException exception) {

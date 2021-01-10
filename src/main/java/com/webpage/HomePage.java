@@ -1,25 +1,19 @@
 package com.webpage;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends BasePage {
 
-   private final String GooglePageUrl = "https://google.com";
-
-   @FindBy(xpath="//input[@name='btnK']")
-   private WebElement buttonSearch;
-
-   @FindBy(xpath="//input[@name='q']")
-   private WebElement inputField;
+       private final String GooglePageUrl = "https://google.com";
+       private WebElement buttonSearch;
+       private WebElement inputField;
 
     public HomePage(WebDriver driver) {
         super(driver);
         log = Logger.getLogger(HomePage.class);
-        PageFactory.initElements(driver, this);
     }
 
     public void openHomePage() {
@@ -37,7 +31,9 @@ To test url from commandLine
   */
 
    public void performSearchByRequest(String searchRequest) {
+        inputField = driver.findElement(By.xpath("//input[@name='q']"));
         inputField.sendKeys(searchRequest);
+        buttonSearch = driver.findElement(By.xpath("//input[@name='btnK']"));
         waitElementLoadedToClick(buttonSearch);
         buttonSearch.click();
         log.info(searchRequest + " request was performed.");
